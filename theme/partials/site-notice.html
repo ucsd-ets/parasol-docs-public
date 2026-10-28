@@ -1,0 +1,31 @@
+{#
+  CANVAS. Site-wide notice.
+
+  One statement, on every page of every site that builds from this tree --
+  production and preview alike -- from `extra.site_notice` in mkdocs.yml. It
+  renders nothing when that value is empty. Deliberately a single config
+  value, so nobody has to add or remove markup across the pages. It began as
+  the draft banner, which said the set was not finished; it now carries
+  whatever the whole site has to say, such as the transition from DSMLP to
+  PARASOL. `extra.site_notice_label`, if set, heads it in small capitals.
+
+  The text is checked like a page's (tools/check-html.py --former-names), so a
+  notice that names a former name needs a matching `protect` phrase in
+  .publish/former-names.toml.
+
+  Uses the site's own classes, not Bootstrap's .alert-warning: Decorator's
+  base.css has no rules for the -warning family, so that would render in stock
+  Bootstrap yellow on a UC San Diego page.
+#}
+{%- if config.extra.site_notice %}
+<div class="container">
+	<div class="row">
+		<div class="docs-site-notice" role="note" aria-label="Site notice">
+			{%- if config.extra.site_notice_label %}
+			<p class="docs-site-notice__label">{{ config.extra.site_notice_label }}</p>
+			{%- endif %}
+			<p>{{ config.extra.site_notice }}</p>
+		</div>
+	</div>
+</div>
+{%- endif %}
